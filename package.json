@@ -1,0 +1,53 @@
+{
+  "name": "@weizx/react-tree",
+  "version": "1.0.0",
+  "description": "A tree component based on React and exposed hook for control",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
+  "umd": "dist/bundle.umd.js",
+  "types": "dist/types/*.d.ts",
+  "files": [
+    "dist/*",
+    "!_",
+    "!*.html",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist & rollup --config build/rollup.config.prod.mjs",
+    "dev": "rm -rf ./dist & rollup --config build/rollup.config.dev.mjs",
+    "test": "pnpm run dev && rollup --config example/rollup.config.mjs --watch"
+  },
+  "keywords": [],
+  "author": "weizhixin",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "cross-env": "^7.0.3",
+    "less": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.9.5",
+    "rollup-plugin-generate-html-template": "^1.7.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^3.0.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
