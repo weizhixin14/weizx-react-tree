@@ -12,9 +12,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rm -rf ./dist & rollup --config build/rollup.config.prod.mjs",
-    "dev": "rm -rf ./dist & rollup --config build/rollup.config.dev.mjs --watch",
-    "start": "rollup --config example/rollup.config.mjs --watch"
+    "build": "rm -rf dist/ & rollup --config build/rollup.config.prod.mjs",
+    "dev": "rm -rf dist/ & rollup --config build/rollup.config.dev.mjs --watch",
+    "start": "rm -rf example/dist/ & rollup --config example/rollup.config.mjs --watch"
   },
   "keywords": [],
   "author": "weizhixin",
