@@ -13,7 +13,7 @@ const plugins = format => {
 };
 
 const watch = {
-    include: absPath('src/**'),
+    include: absPath('src/**/*'),
     clearScreen: true
 };
 

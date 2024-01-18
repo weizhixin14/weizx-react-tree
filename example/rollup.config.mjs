@@ -11,7 +11,6 @@ import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import postcss from 'rollup-plugin-postcss';
 import html from 'rollup-plugin-generate-html-template';
-import {basename} from 'path';
 import absPath from '../build/absPath.mjs';
 
 const extensions = ['.js', 'jsx', '.ts', '.tsx'];
@@ -49,7 +48,7 @@ const plugins = [
     html({
         template: 'public/index.html',
         target: 'example/dist/index.html'
-    }),
+    })
 ];
 
 const watch = {
