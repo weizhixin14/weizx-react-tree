@@ -6,7 +6,6 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import less from 'rollup-plugin-less';
 import absPath from './absPath.mjs';
 
 import pkg from '../package.json' assert {type: 'json'};
@@ -32,13 +31,6 @@ const getPluginsOption = format => {
             extensions,
             babelHelpers: 'runtime', // 辅助函数转化为运行时的引用，配合 @babel/plugin-transform-runtime
             exclude: 'node_modules/**'
-        }),
-        less({
-            output: absPath(`dist/${format}/style.css`),
-            insert: true,
-            option: {
-                compress: true
-            }
         })
     ];
 };

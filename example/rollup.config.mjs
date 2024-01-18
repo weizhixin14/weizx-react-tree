@@ -9,15 +9,16 @@ import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
+import postcss from 'rollup-plugin-postcss';
 import html from 'rollup-plugin-generate-html-template';
-import devConfig from '../build/rollup.config.dev.mjs';
+import {basename} from 'path';
 import absPath from '../build/absPath.mjs';
 
 const extensions = ['.js', 'jsx', '.ts', '.tsx'];
 const plugins = [
     alias({
         entries: [
-            {find: '~', replacement: absPath('../src/')}
+            {find: '~', replacement: absPath('src/')}
         ]
     }),
     commonjs(),
@@ -32,33 +33,41 @@ const plugins = [
         'process.env.NODE_ENV': JSON.stringify('development'),
         preventAssignment: true
     }),
-    html({
-        template: 'public/index.html',
-        target: 'dist/index.html'
+    postcss({
+        extract: 'style.css', // 将 CSS 提取到单独的文件中
+        modules: true, // 启用 CSS 模块化
+        autoModules: true // 自动为 CSS 文件启用模块化
     }),
     serve({
-        contentBase: 'dist', // folder to serve files from
-        port: 5000,
+        open: true,
+        contentBase: absPath('example/dist/'), // folder to serve files from
         verbose: true // show server address in console
     }),
     livereload({
-        watch: 'dist'
-    })
+        watch: absPath('example/dist/*'),
+    }),
+    html({
+        template: 'public/index.html',
+        target: 'example/dist/index.html'
+    }),
 ];
 
-const exampleConfig = [
-    ...devConfig,
-    {
-        input: 'example/index.jsx',
-        output: [
-            {
-                file: 'dist/_/index.js',
-                format: 'iife',
-                sourcemap: true
-            }
-        ],
-        plugins
-    }
-];
+const watch = {
+    include: absPath('dist/**/*'),
+    clearScreen: true
+};
+
+const exampleConfig = {
+    input: absPath('example/index.jsx'),
+    output: [
+        {
+            dir: absPath('example/dist/'),
+            format: 'iife',
+            sourcemap: true
+        }
+    ],
+    watch,
+    plugins
+};
 
 export default exampleConfig;

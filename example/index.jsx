@@ -5,6 +5,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Tree} from '../dist/esm/index.js';
 
+import '../dist/esm/style.css';
+
 const App = () => {
     return (
         <>
