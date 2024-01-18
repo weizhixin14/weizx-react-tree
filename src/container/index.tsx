@@ -1,6 +1,6 @@
-import './style.less';
+import './style.less'
 
-export default () => {
-    const a = '哈哈哈哈';
-    return a;
-};
+export default (): any => {
+  const a = 'eenenenen'
+  return a
+}
