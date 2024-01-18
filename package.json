@@ -4,11 +4,9 @@
   "description": "A tree component based on React and exposed hook for control",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/types/*.d.ts",
+  "types": "dist/esm/types/**/*.d.ts",
   "files": [
-    "dist/*",
-    "!_",
-    "!*.html",
+    "dist",
     "README.md"
   ],
   "scripts": {
