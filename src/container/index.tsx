@@ -1,3 +1,5 @@
+import './style.less';
+
 export default () => {
-    return '123213';
+    return '1234';
 };

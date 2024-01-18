@@ -10,6 +10,7 @@ import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import html from 'rollup-plugin-generate-html-template';
+import devConfig from '../build/rollup.config.dev.mjs';
 import absPath from '../build/absPath.mjs';
 
 const extensions = ['.js', 'jsx', '.ts', '.tsx'];
@@ -45,16 +46,19 @@ const plugins = [
     })
 ];
 
-const exampleConfig = {
-    input: 'example/index.jsx',
-    output: [
-        {
-            file: 'dist/_/index.js',
-            format: 'iife',
-            sourcemap: true
-        }
-    ],
-    plugins
-};
+const exampleConfig = [
+    ...devConfig,
+    {
+        input: 'example/index.jsx',
+        output: [
+            {
+                file: 'dist/_/index.js',
+                format: 'iife',
+                sourcemap: true
+            }
+        ],
+        plugins
+    }
+];
 
 export default exampleConfig;

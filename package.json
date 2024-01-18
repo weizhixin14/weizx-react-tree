@@ -2,9 +2,8 @@
   "name": "@weizx/react-tree",
   "version": "1.0.0",
   "description": "A tree component based on React and exposed hook for control",
-  "main": "dist/bundle.cjs.js",
-  "module": "dist/bundle.esm.js",
-  "umd": "dist/bundle.umd.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types/*.d.ts",
   "files": [
     "dist/*",
@@ -14,8 +13,8 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist & rollup --config build/rollup.config.prod.mjs",
-    "dev": "rm -rf ./dist & rollup --config build/rollup.config.dev.mjs",
-    "test": "pnpm run dev && rollup --config example/rollup.config.mjs --watch"
+    "dev": "rm -rf ./dist & rollup --config build/rollup.config.dev.mjs --watch",
+    "start": "rm -rf ./dist & rollup --config example/rollup.config.mjs --watch"
   },
   "keywords": [],
   "author": "weizhixin",
@@ -32,12 +31,11 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "cross-env": "^7.0.3",
-    "less": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^4.9.5",
     "rollup-plugin-generate-html-template": "^1.7.0",
+    "rollup-plugin-less": "^1.1.3",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^3.0.0",
     "tslib": "^2.6.2",
