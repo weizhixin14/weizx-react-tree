@@ -1,16 +1,16 @@
 import React from 'react';
 import { head, last } from 'lodash-es';
-import type { _Render, _RenderPart } from '~types/global';
-import { AssistLineType } from '~types/global';
+import type { _RenderProps, _RenderPartProps } from '~types/global';
+import { AuxiliaryType } from '~types/global';
 import { CLASS_PREFIX } from '~constants/global';
 import useTree from '~hooks/useTree';
-import AssistLine from '~components/assistLine';
+import AssistLine from '~components/auxiliaryLine';
 import TreeNode from '~components/treeNode';
 import num2Array from '~utils/num2Array';
 
 const prefix = `${CLASS_PREFIX}-tree`;
 
-const _renderPart: React.FC<_RenderPart> = ({
+const _renderPart: React.FC<_RenderPartProps> = ({
     nodeId,
     searchNode,
     childrenId
@@ -29,33 +29,34 @@ const _renderPart: React.FC<_RenderPart> = ({
 /**
  * The core function of rendering trees
  */
-function _render ({ parentId, ...node }: _Render): React.JSX.Element {
+function _render ({ parentId, ...node }: _RenderProps): React.JSX.Element {
     const { searchNode } = useTree();
     const rootRendering = parentId === null;
 
-    const assistLineType: AssistLineType = (() => {
+    /** calculate the type of auxiliary lines between parent-child nodes */
+    const auxiliaryType: AuxiliaryType = (() => {
         if (rootRendering) {
-            return AssistLineType.Null;
+            return AuxiliaryType.Null;
         }
         const curNode = searchNode(parentId);
         const childrenIdArr = num2Array(curNode.childrenId);
 
         if (childrenIdArr.length === 1) {
-            return AssistLineType.Only;
+            return AuxiliaryType.Only;
         }
         if (head(childrenIdArr) === node.nodeId) {
-            return AssistLineType.Head;
+            return AuxiliaryType.Head;
         }
         if (last(childrenIdArr) === node.nodeId) {
-            return AssistLineType.Last;
+            return AuxiliaryType.Last;
         }
 
-        return AssistLineType.Mid;
+        return AuxiliaryType.Mid;
     })();
 
     return (
         <div className={`${prefix}-wrapper`}>
-            <AssistLine assistLineType={assistLineType} />
+            <AssistLine auxiliaryType={auxiliaryType} />
             <TreeNode
                 rootRendering={rootRendering}
                 {...node}

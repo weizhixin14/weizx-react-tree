@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react';
-import { _context } from '~entry/_context';
+import { _context } from '~constants/_context';
 import type { UseTree, InsertNode, UpdateNode, SearchNode, DeleteNode } from '~types/global';
 
 const useTree = (): UseTree => {

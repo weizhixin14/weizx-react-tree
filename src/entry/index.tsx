@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { TreeComponent } from '~types/global';
-import { _context } from './_context';
+import { _context } from '~constants/_context';
 
 import './style.less';
 
