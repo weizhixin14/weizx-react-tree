@@ -28,5 +28,9 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/indent": ["error", 4],
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/brace-style": "off"
     }
 }
