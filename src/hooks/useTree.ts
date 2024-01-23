@@ -1,22 +1,13 @@
 import { useContext, useCallback } from 'react';
-import { _context } from '~constants/_context';
+import { context } from '~constants/context';
 import type { UseTree, InsertNode, UpdateNode, SearchNode, DeleteNode } from '~types/global';
 
 const useTree = (): UseTree => {
-    const [treeConfig, setTreeConfig] = useContext(_context);
+    const [treeConfig, setTreeConfig] = useContext(context);
 
     const searchNode = useCallback<SearchNode>(
-        nodeId => {
-            return {
-                nodeId: 1,
-                nodeType: 1,
-                nodeText: '123',
-                nodeTitle: '123',
-                disabled: false,
-                childrenId: 2
-            };
-        },
-        []
+        nodeId => treeConfig.nodeList.find(item => item.nodeId === nodeId),
+        [treeConfig]
     );
 
     const insertNode = useCallback<InsertNode>(

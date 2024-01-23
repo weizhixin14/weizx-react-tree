@@ -1,3 +1,40 @@
- div {
-    font-size: 14px;
- }
+@border: 2px solid var(--tree-background-color-2);
+
+.weizx-tree-auxiliary-line {
+    &-only {
+        display: block;
+        width: 2px;
+        height: 54px;
+        margin: 0 auto;
+        background-color: var(--tree-background-color-2);
+    }
+
+    &-head {
+        width: calc(50% + 1px);
+        height: 26px;
+        margin-left: calc(50% - 1px);
+        border-top: @border;
+        border-left: @border;
+        border-top-left-radius: 10px;
+    }
+
+    &-last {
+        width: calc(50% + 1px);
+        height: 28px;
+        border-top: @border;
+        border-right: @border;
+        border-top-right-radius: 10px;
+    }
+
+    &-mid {
+        border-top: @border;
+
+        &-inner {
+            display: block;
+            width: 2px;
+            height: 26px;
+            margin: 0 auto;
+            background-color: var(--tree-background-color-2);
+        }
+    }
+}

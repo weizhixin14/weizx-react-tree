@@ -34,8 +34,8 @@ const plugins = [
     }),
     postcss({
         extract: 'style.css', // 将 CSS 提取到单独的文件中
-        modules: true, // 启用 CSS 模块化
-        autoModules: true // 自动为 CSS 文件启用模块化
+        // modules: true, // 启用 CSS 模块化
+        // autoModules: true // 自动为 CSS 文件启用模块化
     }),
     serve({
         open: true,

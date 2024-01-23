@@ -9,10 +9,10 @@ import '../dist/esm/style.css';
 
 const App = () => {
     return (
-        <>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <h1>Test!!!!!</h1>
             <Tree />
-        </>
+        </div>
     );
 };
 

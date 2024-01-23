@@ -1,4 +1,33 @@
+@import url('../../common/style/fontSetter.less');
 
-div {
-    font-size: 14px;
- }
+.weizx-tree-node {
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 24px;
+    }
+
+    &-top-line,
+    &-bot-line {
+        width: 2px;
+        height: 26px;
+        background-color: var(--tree-background-color-2);
+    }
+
+    &-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 159px;
+        height: 88px;
+        border: 1px solid currentcolor;
+        border-radius: 4px;
+        cursor: pointer;
+        .fontSetter(400, 14px, 20px, var(--tree-font-color-1));
+
+        &-disabled {
+            color: var(--tree-font-color-2);
+        }
+    }
+}
