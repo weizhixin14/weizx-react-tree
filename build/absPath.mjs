@@ -1,6 +1,3 @@
-/**
- * 相对路径解析为绝对路径
- */
 import {fileURLToPath} from 'url';
 import {resolve, dirname} from 'path';
 

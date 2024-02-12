@@ -21,18 +21,15 @@ const _renderPart: React.FC<_RenderPartProps> = ({
         return '';
     }
     const curChildrenId = num2Array(childrenId);
-
     return (
         <div className={`${prefix}-child-outer`}>
-            {
-                curChildrenId.map(id => {
-                    const childNode = searchNode(id);
-                    if (childNode !== undefined) {
-                        return _render({ parentId: nodeId, ...childNode });
-                    }
+            {curChildrenId.map(id => {
+                const childNode = searchNode(id);
+                if (childNode === undefined) {
                     return '';
-                })
-            }
+                }
+                return _render({ parentId: nodeId, ...childNode });
+            })}
         </div>
     );
 };
@@ -45,9 +42,7 @@ function _render ({ parentId, ...treeNode }: _RenderProps): React.JSX.Element {
     const rootRendering = parentId === null;
     const leafRendering = isEmpty(treeNode.childrenId);
 
-    /**
-     * calculate the type of auxiliary lines between parent-child nodes
-     */
+    // calculate the type of auxiliary lines between parent-child nodes
     const auxiliaryType: AuxiliaryType = (() => {
         const curNode = searchNode(parentId);
         if (rootRendering || curNode === undefined) {

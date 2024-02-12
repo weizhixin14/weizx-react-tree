@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { isNumber, isEmpty } from 'lodash-es';
 import type { TreeComponent } from '~types/global';
 import { CLASS_PREFIX } from '~constants/global';
 import { initialValue } from '~constants/tree';
@@ -13,13 +12,8 @@ const prefix = `${CLASS_PREFIX}`;
 const Entry: React.FC<TreeComponent> = ({ treeConfig = initialValue }) => {
     const [tree, setTree] = useState(treeConfig);
 
-    const { rootId, nodeList } = treeConfig;
-    const rootNode = nodeList.find(item => item.nodeId === rootId);
-
-    if (!isNumber(rootId) || isNaN(rootId) || isEmpty(nodeList) || rootNode === undefined) {
-        console.warn('Component props validated failed');
-        return '';
-    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const rootNode = tree.nodeList.find(item => item.nodeId === tree.rootId)!;
 
     return (
         <context.Provider value={[tree, setTree] }>

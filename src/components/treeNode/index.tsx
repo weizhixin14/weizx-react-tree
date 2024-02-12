@@ -25,7 +25,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({
                 <div className={`${prefix}-content-word-wrapper`}>
                     {nodeText}
                 </div>
-                <div className={`${prefix}-insert`} />
+                <div className={`${prefix}-content-insert`} />
             </div>
             {!leafRendering && <div className={`${prefix}-bot-line`} />}
         </div>
