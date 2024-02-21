@@ -1,6 +1,6 @@
 import React from 'react';
 import { head, last, isEmpty } from 'lodash-es';
-import type { _RenderProps, _RenderPartProps } from '~types/global';
+import type { ErgodicRenderProps } from '~types/global';
 import { AuxiliaryType } from '~types/global';
 import { CLASS_PREFIX } from '~constants/global';
 import useTree from '~hooks/useTree';
@@ -12,51 +12,26 @@ import './style.less';
 
 const prefix = `${CLASS_PREFIX}`;
 
-const _renderPart: React.FC<_RenderPartProps> = ({
-    nodeId,
-    searchNode,
-    childrenId
-}) => {
-    if (childrenId === undefined) {
-        return '';
-    }
-    const curChildrenId = num2Array(childrenId);
-    return (
-        <div className={`${prefix}-child-outer`}>
-            {curChildrenId.map(id => {
-                const childNode = searchNode(id);
-                if (childNode === undefined) {
-                    return '';
-                }
-                return _render({ parentId: nodeId, ...childNode });
-            })}
-        </div>
-    );
-};
-
-/**
- * The core function of rendering trees
- */
-function _render ({ parentId, ...treeNode }: _RenderProps): React.JSX.Element {
+const ErgodicRender: React.FC<ErgodicRenderProps> = ({ parentId, nodeId }) => {
     const { searchNode } = useTree();
+    const treeNode = searchNode(nodeId);
     const rootRendering = parentId === null;
     const leafRendering = isEmpty(treeNode.childrenId);
 
-    // calculate the type of auxiliary lines between parent-child nodes
     const auxiliaryType: AuxiliaryType = (() => {
-        const curNode = searchNode(parentId);
-        if (rootRendering || curNode === undefined) {
+        if (rootRendering) {
             return AuxiliaryType.Null;
         }
+        const curNode = searchNode(parentId);
         const childrenIdArr = num2Array(curNode.childrenId);
 
         if (childrenIdArr.length === 1) {
             return AuxiliaryType.Only;
         }
-        if (head(childrenIdArr) === treeNode.nodeId) {
+        if (head(childrenIdArr) === nodeId) {
             return AuxiliaryType.Head;
         }
-        if (last(childrenIdArr) === treeNode.nodeId) {
+        if (last(childrenIdArr) === nodeId) {
             return AuxiliaryType.Last;
         }
 
@@ -64,16 +39,18 @@ function _render ({ parentId, ...treeNode }: _RenderProps): React.JSX.Element {
     })();
 
     return (
-        <div className={`${prefix}-wrapper`} key={treeNode.nodeId}>
+        <div className={`${prefix}-wrapper`} key={nodeId}>
             <AuxiliaryLine auxiliaryType={auxiliaryType} />
             <TreeNode
                 rootRendering={rootRendering}
                 leafRendering={leafRendering}
                 {...treeNode}
             />
-            {_renderPart({ searchNode, nodeId: treeNode.nodeId, childrenId: treeNode.childrenId })}
+            <div className={`${prefix}-child-outer`}>
+                {num2Array(treeNode.childrenId).map((id, key) => <ErgodicRender parentId={nodeId} nodeId={id} key={key} />)}
+            </div>
         </div>
     );
 };
 
-export { _render };
+export { ErgodicRender };

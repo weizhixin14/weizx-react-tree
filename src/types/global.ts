@@ -21,14 +21,14 @@ export type TreeNode = {
     childrenId?: ChildrenId
 };
 
-export type TreeConfig = {
+export type Tree = {
     rootId: number
     nodeList: TreeNode[]
 };
 
 export type UseTree = {
-    setTreeConfig: SetTreeConfig
-    treeConfig: TreeConfig
+    tree: Tree
+    setTree: SetTree
     createNode: CreateNode
     insertNode: InsertNode
     updateNode: UpdateNode
@@ -38,11 +38,11 @@ export type UseTree = {
 
 export enum AuxiliaryType { Null, Only, Head, Mid, Last };
 
-export type ContextValue = [TreeConfig, SetTreeConfig];
+export type ContextValue = [Tree, SetTree];
 
 export type CreateNode = (options: Partial<Omit<TreeNode, 'nodeId'>>) => TreeNode;
 
-export type SearchNode = (nodeId: NodeId | null) => TreeNode;
+export type SearchNode = (nodeId: NodeId) => TreeNode;
 
 export type DeleteNode = (nodeId: NodeId) => void;
 
@@ -50,11 +50,9 @@ export type InsertNode = (parentId: ParentId, options?: Partial<Omit<TreeNode, '
 
 export type UpdateNode = (nodeId: NodeId, options?: Partial<Omit<TreeNode, 'nodeId'>>) => void;
 
-export type SetTreeConfig = (treeConfig: TreeConfig) => void;
+export type SetTree = (tree: Tree) => void;
 
-export type _RenderProps = TreeNode & { parentId: ParentId };
-
-export type _RenderPartProps = Pick<UseTree, 'searchNode'> & Pick<TreeNode, 'nodeId' | 'childrenId'>;
+export type ErgodicRenderProps = { parentId: ParentId, nodeId: NodeId };
 
 export type AuxiliaryLineProps = { auxiliaryType: AuxiliaryType };
 
@@ -63,4 +61,4 @@ export type TreeNodeProps = TreeNode & {
     leafRendering: boolean
 };
 
-export type TreeComponent = { treeConfig?: TreeConfig };
+export type TreeComponent = { tree?: Tree };

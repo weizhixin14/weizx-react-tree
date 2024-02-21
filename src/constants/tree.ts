@@ -1,9 +1,9 @@
-import type { TreeConfig } from '~types/global';
+import type { Tree } from '~types/global';
 
 /**
- * initial treeConfig value.
+ * Initial treeConfig value.
  */
-export const initialValue: TreeConfig = {
+export const initialValue: Tree = {
     rootId: 0,
     nodeList: [
         {
