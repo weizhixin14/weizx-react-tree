@@ -14,9 +14,9 @@ const prefix = `${CLASS_PREFIX}`;
 
 const ErgodicRender: React.FC<ErgodicRenderProps> = ({ parentId, nodeId }) => {
     const { searchNode } = useTree();
-    const treeNode = searchNode(nodeId);
+    const { childrenId } = searchNode(nodeId);
     const rootRendering = parentId === null;
-    const leafRendering = isEmpty(treeNode.childrenId);
+    const leafRendering = isEmpty(childrenId);
 
     const auxiliaryType: AuxiliaryType = (() => {
         if (rootRendering) {
@@ -44,10 +44,10 @@ const ErgodicRender: React.FC<ErgodicRenderProps> = ({ parentId, nodeId }) => {
             <TreeNode
                 rootRendering={rootRendering}
                 leafRendering={leafRendering}
-                {...treeNode}
+                nodeId={nodeId}
             />
             <div className={`${prefix}-child-outer`}>
-                {num2Array(treeNode.childrenId).map((id, key) => <ErgodicRender parentId={nodeId} nodeId={id} key={key} />)}
+                {num2Array(childrenId).map((id, key) => <ErgodicRender parentId={nodeId} nodeId={id} key={key} />)}
             </div>
         </div>
     );

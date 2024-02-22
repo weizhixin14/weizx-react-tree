@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { max, set, cloneDeep } from 'lodash-es';
-import { context } from '~constants/context';
+import { basicContext } from '~constants/context';
 import type { UseTree, CreateNode, InsertNode, UpdateNode, SearchNode, DeleteNode } from '~types/global';
 import num2Array from '~utils/num2Array';
 
 const useTree = (): UseTree => {
-    const [tree, setTree] = useContext(context);
+    const [tree, setTree] = useContext(basicContext);
 
     /**
      * Create a new node, but it is not inserted into the tree.
@@ -71,9 +71,10 @@ const useTree = (): UseTree => {
      * Delete target node from tree.
      */
     const deleteNode: DeleteNode = targetId => {
+        const nTree = cloneDeep(tree);
         // Delete the target child nodeId from the parent node's childrenId.
-        for (let index = 0; index < tree.nodeList.length; index++) {
-            const { childrenId } = tree.nodeList[index];
+        for (let index = 0; index < nTree.nodeList.length; index++) {
+            const { childrenId } = nTree.nodeList[index];
             const childrenIdArr = num2Array(childrenId);
             const position = childrenIdArr.indexOf(targetId);
             if (position === -1) {
@@ -83,21 +84,21 @@ const useTree = (): UseTree => {
                 childrenId.splice(position, 1);
             }
             if (typeof childrenId === 'number') {
-                delete tree.nodeList[index].childrenId;
+                delete nTree.nodeList[index].childrenId;
             }
             break;
         }
         // Recursively delete the target node and its descendants.
         (function ergodic (id) {
-            const position = tree.nodeList.findIndex(({ nodeId }) => nodeId === id);
+            const position = nTree.nodeList.findIndex(({ nodeId }) => nodeId === id);
             if (position === -1) {
                 throw new Error('The node is not in the tree, please check the input parameters.');
             }
-            const childrenIdArr = num2Array(tree.nodeList[position].childrenId);
-            tree.nodeList.splice(position, 1);
+            const childrenIdArr = num2Array(nTree.nodeList[position].childrenId);
+            nTree.nodeList.splice(position, 1);
             childrenIdArr.forEach((nodeId) => { ergodic(nodeId); });
         })(targetId);
-        setTree(tree);
+        setTree(nTree);
     };
 
     return {

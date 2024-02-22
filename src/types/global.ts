@@ -38,7 +38,13 @@ export type UseTree = {
 
 export enum AuxiliaryType { Null, Only, Head, Mid, Last };
 
-export type ContextValue = [Tree, SetTree];
+export type BasicContext = [Tree, SetTree];
+
+export type OptionContext = {
+    options: Omit<TreeComponent, 'tree'>
+    curSelectedNodeId: null | NodeId
+    setCurSelectedNodeId: (nodeId: null | NodeId) => void
+};
 
 export type CreateNode = (options: Partial<Omit<TreeNode, 'nodeId'>>) => TreeNode;
 
@@ -56,9 +62,17 @@ export type ErgodicRenderProps = { parentId: ParentId, nodeId: NodeId };
 
 export type AuxiliaryLineProps = { auxiliaryType: AuxiliaryType };
 
-export type TreeNodeProps = TreeNode & {
+export type TreeNodeProps = {
     rootRendering: boolean
     leafRendering: boolean
+    nodeId: NodeId
 };
 
-export type TreeComponent = { tree?: Tree };
+export type TreeComponent = {
+    tree?: Tree
+    onTreeNodeClick?: (params: TreeNode) => void
+    treeNodeClassName?: 'string'
+    treeNodeStyle?: React.CSSProperties
+    insertNodeClick?: () => void
+    deleteNodeClick?: (params: TreeNode) => void
+};

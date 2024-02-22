@@ -1,11 +1,20 @@
 import { createContext } from 'react';
-import type { ContextValue } from '~types/global';
+import type { BasicContext, OptionContext } from '~types/global';
 import { initialValue } from './tree';
 
-const context = createContext<ContextValue>(
+const basicContext = createContext<BasicContext>(
     [
         initialValue,
         () => {}
-    ]);
+    ]
+);
 
-export { context };
+const optionContext = createContext<OptionContext>(
+    {
+        options: {},
+        curSelectedNodeId: null,
+        setCurSelectedNodeId: () => {}
+    }
+);
+
+export { basicContext, optionContext };
