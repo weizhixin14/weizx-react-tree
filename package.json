@@ -1,5 +1,5 @@
 {
-  "name": "@weizx/react-tree",
+  "name": "weizx-react-tree",
   "version": "1.0.1",
   "description": "A tree component based on React and exposed hook for control",
   "main": "dist/cjs/index.js",
@@ -19,6 +19,10 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint",
     "src/**/*.{css,less}": "stylelint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weizhixin14/weizx-react-tree"
   },
   "keywords": [],
   "author": "weizhixin",
